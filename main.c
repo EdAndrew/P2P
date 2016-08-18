@@ -438,6 +438,7 @@ void *p2p(void *args)
 	send_msg(user_fd, out);
 
 	// 等待客户端发来消息
+	//fix: 剔除长时间挂机用户
 	while((strcmp(in, "CONNECT")) != 0 && (strcmp(in, "QUIT") != 0))
 	{
 		//获取消息
