@@ -468,6 +468,7 @@ void *p2p(void *args)
 		// 格式: ADD <文件名> <Hash值> <文件大小>
 		if(strncmp(in, "ADD", 3) == 0)
 		{
+			//fix: strtok线程不安全
 			strtok(in, " ");
 			filename = strtok(NULL, " ");
 			flag=0;
@@ -583,6 +584,7 @@ void *p2p(void *args)
 				}
 				else if(strcmp(peeraddr,(char *) sqlite3_column_text(stmt, 2)))
 				{
+					//fix: 缓存中间结果，减少网络IO
 					sprintf(out, "%s %d\n", sqlite3_column_text(stmt, 0), sqlite3_column_int(stmt, 1));
 					send_msg(user_fd, out);
 				}
